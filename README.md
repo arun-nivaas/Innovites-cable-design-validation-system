@@ -14,23 +14,7 @@ Return PASS/WARN/FAIL results with confidence scores and explanations
 
 Key Principle: No hardcoded IEC rules or lookup tables — validation is performed entirely through AI reasoning.
 ## Architecture
-
-┌─────────────┐
-│   Streamlit │  ← User Interface
-│   Frontend  │
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│   FastAPI   │  ← REST API
-│   Backend   │
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  LangChain  │  ← AI Integration
-│  + Gemini   │
-└─────────────┘
+![Architecture](https://github.com/arun-nivaas/Innovites-cable-design-validation-system/blob/dev/assets/architecture.png.png)
 ## 🚀 Quick Start
 
 #### Prerequisites
