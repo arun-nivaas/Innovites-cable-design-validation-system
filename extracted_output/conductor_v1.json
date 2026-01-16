@@ -1,0 +1,346 @@
+{
+  "tables": [
+    {
+      "table_number": 2,
+      "table_title": "Stranded Conductors for Single Core and Multicore Cables (Class 2)",
+      "reference_clauses": "Clauses 6.2.3, 6.3.3 and 7.3.1",
+      "columns": [
+        "Sl No.",
+        "Nominal Cross-Sectional Area (mm²)",
+        "Minimum Number of Wires in the Conductor - Circular Conductor (Non-Compacted) - Cu",
+        "Minimum Number of Wires in the Conductor - Circular Conductor (Non-Compacted) - Al",
+        "Minimum Number of Wires in the Conductor - Circular Compacted or Shaped Conductor - Cu",
+        "Minimum Number of Wires in the Conductor - Circular Compacted or Shaped Conductor - Al",
+        "Maximum Resistance of Conductor at 20°C - Copper Conductor - Plain Wires (Ω/km)",
+        "Maximum Resistance of Conductor at 20°C - Copper Conductor - Tinned Wires (Ω/km)",
+        "Maximum Resistance of Conductor at 20°C - Aluminium Conductor (Ω/km)"
+      ],
+      "rows": [
+        {
+          "sl_no": "i)",
+          "nominal_cross_sectional_area": 1,
+          "min_wires_circular_cu": 3,
+          "min_wires_circular_al": null,
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 18.1,
+          "max_resistance_cu_tinned": 18.2,
+          "max_resistance_al": null
+        },
+        {
+          "sl_no": "ii)",
+          "nominal_cross_sectional_area": 1.5,
+          "min_wires_circular_cu": 3,
+          "min_wires_circular_al": 3,
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 12.1,
+          "max_resistance_cu_tinned": 12.2,
+          "max_resistance_al": 18.1
+        },
+        {
+          "sl_no": "iii)",
+          "nominal_cross_sectional_area": 2.5,
+          "min_wires_circular_cu": 3,
+          "min_wires_circular_al": 3,
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 7.41,
+          "max_resistance_cu_tinned": 7.56,
+          "max_resistance_al": 12.1
+        },
+        {
+          "sl_no": "iv)",
+          "nominal_cross_sectional_area": 4,
+          "min_wires_circular_cu": 7,
+          "min_wires_circular_al": 3,
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 4.61,
+          "max_resistance_cu_tinned": 4.7,
+          "max_resistance_al": 7.41
+        },
+        {
+          "sl_no": "v)",
+          "nominal_cross_sectional_area": 6,
+          "min_wires_circular_cu": 7,
+          "min_wires_circular_al": 3,
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 3.08,
+          "max_resistance_cu_tinned": 3.11,
+          "max_resistance_al": 4.61
+        },
+        {
+          "sl_no": "vi)",
+          "nominal_cross_sectional_area": 10,
+          "min_wires_circular_cu": 7,
+          "min_wires_circular_al": 7,
+          "min_wires_compacted_cu": 6,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 1.83,
+          "max_resistance_cu_tinned": 1.84,
+          "max_resistance_al": 3.08
+        },
+        {
+          "sl_no": "vii)",
+          "nominal_cross_sectional_area": 16,
+          "min_wires_circular_cu": 7,
+          "min_wires_circular_al": 7,
+          "min_wires_compacted_cu": 6,
+          "min_wires_compacted_al": 6,
+          "max_resistance_cu_plain": 1.15,
+          "max_resistance_cu_tinned": 1.16,
+          "max_resistance_al": 1.91
+        },
+        {
+          "sl_no": "viii)",
+          "nominal_cross_sectional_area": 25,
+          "min_wires_circular_cu": 7,
+          "min_wires_circular_al": 7,
+          "min_wires_compacted_cu": 6,
+          "min_wires_compacted_al": 6,
+          "max_resistance_cu_plain": 0.727,
+          "max_resistance_cu_tinned": 0.734,
+          "max_resistance_al": 1.2
+        },
+        {
+          "sl_no": "ix)",
+          "nominal_cross_sectional_area": 35,
+          "min_wires_circular_cu": 7,
+          "min_wires_circular_al": 7,
+          "min_wires_compacted_cu": 6,
+          "min_wires_compacted_al": 6,
+          "max_resistance_cu_plain": 0.524,
+          "max_resistance_cu_tinned": 0.529,
+          "max_resistance_al": 0.868
+        },
+        {
+          "sl_no": "x)",
+          "nominal_cross_sectional_area": 50,
+          "min_wires_circular_cu": 19,
+          "min_wires_circular_al": 19,
+          "min_wires_compacted_cu": 6,
+          "min_wires_compacted_al": 6,
+          "max_resistance_cu_plain": 0.387,
+          "max_resistance_cu_tinned": 0.391,
+          "max_resistance_al": 0.641
+        },
+        {
+          "sl_no": "xi)",
+          "nominal_cross_sectional_area": 70,
+          "min_wires_circular_cu": 19,
+          "min_wires_circular_al": 19,
+          "min_wires_compacted_cu": 12,
+          "min_wires_compacted_al": 12,
+          "max_resistance_cu_plain": 0.268,
+          "max_resistance_cu_tinned": 0.27,
+          "max_resistance_al": 0.443
+        },
+        {
+          "sl_no": "xii)",
+          "nominal_cross_sectional_area": 95,
+          "min_wires_circular_cu": 19,
+          "min_wires_circular_al": 19,
+          "min_wires_compacted_cu": 15,
+          "min_wires_compacted_al": 15,
+          "max_resistance_cu_plain": 0.193,
+          "max_resistance_cu_tinned": 0.195,
+          "max_resistance_al": 0.32
+        },
+        {
+          "sl_no": "xiii)",
+          "nominal_cross_sectional_area": 120,
+          "min_wires_circular_cu": 37,
+          "min_wires_circular_al": 37,
+          "min_wires_compacted_cu": 18,
+          "min_wires_compacted_al": 15,
+          "max_resistance_cu_plain": 0.153,
+          "max_resistance_cu_tinned": 0.154,
+          "max_resistance_al": 0.253
+        },
+        {
+          "sl_no": "xiv)",
+          "nominal_cross_sectional_area": 150,
+          "min_wires_circular_cu": 37,
+          "min_wires_circular_al": 37,
+          "min_wires_compacted_cu": 18,
+          "min_wires_compacted_al": 15,
+          "max_resistance_cu_plain": 0.124,
+          "max_resistance_cu_tinned": 0.126,
+          "max_resistance_al": 0.206
+        },
+        {
+          "sl_no": "xv)",
+          "nominal_cross_sectional_area": 185,
+          "min_wires_circular_cu": 37,
+          "min_wires_circular_al": 37,
+          "min_wires_compacted_cu": 30,
+          "min_wires_compacted_al": 30,
+          "max_resistance_cu_plain": 0.0991,
+          "max_resistance_cu_tinned": 0.1,
+          "max_resistance_al": 0.164
+        },
+        {
+          "sl_no": "xvi)",
+          "nominal_cross_sectional_area": 240,
+          "min_wires_circular_cu": 61,
+          "min_wires_circular_al": 37,
+          "min_wires_compacted_cu": 34,
+          "min_wires_compacted_al": 30,
+          "max_resistance_cu_plain": 0.0754,
+          "max_resistance_cu_tinned": 0.0762,
+          "max_resistance_al": 0.125
+        },
+        {
+          "sl_no": "xvii)",
+          "nominal_cross_sectional_area": 300,
+          "min_wires_circular_cu": 61,
+          "min_wires_circular_al": 61,
+          "min_wires_compacted_cu": 34,
+          "min_wires_compacted_al": 30,
+          "max_resistance_cu_plain": 0.0601,
+          "max_resistance_cu_tinned": 0.0607,
+          "max_resistance_al": 0.1
+        },
+        {
+          "sl_no": "xviii)",
+          "nominal_cross_sectional_area": 400,
+          "min_wires_circular_cu": 61,
+          "min_wires_circular_al": 61,
+          "min_wires_compacted_cu": 53,
+          "min_wires_compacted_al": 53,
+          "max_resistance_cu_plain": 0.047,
+          "max_resistance_cu_tinned": 0.0475,
+          "max_resistance_al": 0.0778
+        },
+        {
+          "sl_no": "xix)",
+          "nominal_cross_sectional_area": 500,
+          "min_wires_circular_cu": 61,
+          "min_wires_circular_al": 61,
+          "min_wires_compacted_cu": 53,
+          "min_wires_compacted_al": 53,
+          "max_resistance_cu_plain": 0.0366,
+          "max_resistance_cu_tinned": 0.0369,
+          "max_resistance_al": 0.0605
+        },
+        {
+          "sl_no": "xx)",
+          "nominal_cross_sectional_area": 630,
+          "min_wires_circular_cu": 91,
+          "min_wires_circular_al": 91,
+          "min_wires_compacted_cu": 53,
+          "min_wires_compacted_al": 53,
+          "max_resistance_cu_plain": 0.0283,
+          "max_resistance_cu_tinned": 0.0286,
+          "max_resistance_al": 0.0469
+        },
+        {
+          "sl_no": "xxi)",
+          "nominal_cross_sectional_area": 800,
+          "min_wires_circular_cu": 91,
+          "min_wires_circular_al": 91,
+          "min_wires_compacted_cu": 53,
+          "min_wires_compacted_al": 53,
+          "max_resistance_cu_plain": 0.0221,
+          "max_resistance_cu_tinned": 0.0224,
+          "max_resistance_al": 0.0367,
+          "note": "segmental conductors"
+        },
+        {
+          "sl_no": "xxii)",
+          "nominal_cross_sectional_area": 1000,
+          "min_wires_circular_cu": 91,
+          "min_wires_circular_al": 91,
+          "min_wires_compacted_cu": 53,
+          "min_wires_compacted_al": 53,
+          "max_resistance_cu_plain": 0.0176,
+          "max_resistance_cu_tinned": 0.0177,
+          "max_resistance_al": 0.0291,
+          "note": "segmental conductors"
+        },
+        {
+          "sl_no": "xxiii)",
+          "nominal_cross_sectional_area": 1200,
+          "min_wires_circular_cu": null,
+          "min_wires_circular_al": "see_note_3",
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 0.0151,
+          "max_resistance_cu_tinned": 0.0151,
+          "max_resistance_al": 0.0247,
+          "note": "can be either stranded or segmental"
+        },
+        {
+          "sl_no": "xxiv)",
+          "nominal_cross_sectional_area": 1400,
+          "min_wires_circular_cu": null,
+          "min_wires_circular_al": "see_note_3",
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 0.0129,
+          "max_resistance_cu_tinned": 0.0129,
+          "max_resistance_al": 0.0212,
+          "note": "can be either stranded or segmental"
+        },
+        {
+          "sl_no": "xxv)",
+          "nominal_cross_sectional_area": 1600,
+          "min_wires_circular_cu": null,
+          "min_wires_circular_al": "see_note_3",
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 0.0113,
+          "max_resistance_cu_tinned": 0.0113,
+          "max_resistance_al": 0.0186,
+          "note": "can be either stranded or segmental"
+        },
+        {
+          "sl_no": "xxvi)",
+          "nominal_cross_sectional_area": 1800,
+          "min_wires_circular_cu": null,
+          "min_wires_circular_al": "see_note_3",
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 0.0101,
+          "max_resistance_cu_tinned": 0.0101,
+          "max_resistance_al": 0.0165,
+          "note": "can be either stranded or segmental"
+        },
+        {
+          "sl_no": "xxvii)",
+          "nominal_cross_sectional_area": 2000,
+          "min_wires_circular_cu": null,
+          "min_wires_circular_al": "see_note_3",
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 0.009,
+          "max_resistance_cu_tinned": 0.009,
+          "max_resistance_al": 0.0149,
+          "note": "can be either stranded or segmental"
+        },
+        {
+          "sl_no": "xxviii)",
+          "nominal_cross_sectional_area": 2500,
+          "min_wires_circular_cu": null,
+          "min_wires_circular_al": "see_note_3",
+          "min_wires_compacted_cu": null,
+          "min_wires_compacted_al": null,
+          "max_resistance_cu_plain": 0.0072,
+          "max_resistance_cu_tinned": 0.0072,
+          "max_resistance_al": 0.0127,
+          "note": "can be either stranded or segmental"
+        }
+      ],
+      "footnotes": [
+        "1) These are segmental conductors.",
+        "2) Can be either stranded or segmental.",
+        "3) The minimum number of wires for these sizes is not specified. These sizes may be constructed from 4, 5 or 6 equal segments (Milliken)."
+      ],
+      "notes": [
+        "In case 800 and 1 000 square mm if constructed as per segment construction then the minimum number of wires is not specified. However the number of segments can be 4, 5 or 6."
+      ]
+    }
+  ]
+}
