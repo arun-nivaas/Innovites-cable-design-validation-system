@@ -11,9 +11,17 @@ class Settings(BaseSettings):
     )
     
     # Google Gemini
+    openai_api_key: str = Field(default="", description="OpenAI API key")
     google_api_key: str = Field(default="", description="Google API key")
-    gemini_model_name: str = Field(default="", description="Gemini model name")
+    model_name: str = Field(default="", description="model name")
+    anthropic_api_key: str = Field(default="", description="Anthropic API key")
+    groq_api_key: str = Field(default="", description="Groq API key")
+    llama_cloud_api_key: str = Field(default="", description="Llama Cloud API key")
 
+    # Database
+    database_url: str = Field(default="", description="Database connection URL")
+
+    
     # LangSmith
     langsmith_api_key: str = Field(default="", description="LangSmith API key")
     langsmith_project: str = Field(default="", description="LangSmith project name")

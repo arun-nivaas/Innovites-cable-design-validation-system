@@ -6,21 +6,18 @@ from dotenv import load_dotenv
 from pathlib import Path
 from src.backend.config.logger import logger
 from typing import Dict, Any
+from src.backend.db.database import engine, Base
+from src.backend.config.constants import constant
 
 
 # Load environment variables
 ENV_PATH = Path(__file__).resolve().parent / ".env"
 load_dotenv(dotenv_path=ENV_PATH)
 
-# Application settings
-APP_TITLE = "Innovites Cable Design Validation System"
-APP_VERSION = "1.0.0"
-HOST = "127.0.0.1"
-PORT = 8000
 
 app = FastAPI(
-    title=APP_TITLE,
-    version=APP_VERSION,
+    title=constant.APP_TITLE,
+    version=constant.APP_VERSION,
     description="Advanced AI-powered validation for wires and cables design.",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -34,6 +31,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+Base.metadata.create_all(bind=engine)
 
 app.include_router(design_router)
 
@@ -45,16 +43,15 @@ async def root_health_check() -> Dict[str,Any]:
     """
     return {
         "status": "healthy",
-        "service": APP_TITLE,
-        "version": APP_VERSION,
+        "service": constant.APP_TITLE,
+        "version": constant.APP_VERSION,
         "documentation": "/docs",
         "message": "API is operational. Use the /docs endpoint for testing."
     }
 
 if __name__ == "__main__":
-    import uvicorn
     
-    logger.info(f"🌐 Starting server on http://{HOST}:{PORT}")
-    logger.info(f"📚 API docs available at http://{HOST}:{PORT}/docs\n")
+    logger.info(f"🌐 Starting server on http://{constant.HOST}:{constant.PORT}")
+    logger.info(f"📚 API docs available at http://{constant.HOST}:{constant.PORT}/docs\n")
 
-    uvicorn.run("main:app", host=HOST, port=PORT, reload=True, log_level="info")
+    uvicorn.run("main:app", host=constant.HOST, port=constant.PORT, reload=True, log_level="info")
