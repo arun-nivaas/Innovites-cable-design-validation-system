@@ -15,15 +15,12 @@
 </p>
 
 </div>
-<br>
 
-The **Cable Design Validation System** is a sophisticated backend engine that automates the 
-verification of cable technical specifications against Indian standards (IS). By combining 
-**Structured RAG** with a **Multi-Stage Automated Workflow**, it transforms unstructured technical 
-descriptions into validated, compliant designs with high precision.
+> The **Cable Design Validation System** is a sophisticated backend engine that automates the 
+> verification of cable technical specifications against Indian standards (IS). By combining 
+> **Structured RAG** with a **Multi-Stage Automated Workflow**, it transforms unstructured technical 
+> descriptions into validated, compliant designs with high precision.
 <br>
-<br>
-<hr style="border: none; border-top: 1px solid #343333ff;" />
 
 ## 🛠️ How It Works
 
@@ -33,17 +30,18 @@ The system follows a rigorous 4-stage pipeline orchestrated for maximum accuracy
 - **Database Validation**: Checks parameters against technical tables in `conductors.db`.
 - **Contextual Logic**: Aggregates database proofs and standard references.
 - **Self-Correction**: [Google Gemini](https://ai.google.dev/) performs a final cross-reference audit.
-<hr style="border: none; border-top: 1px solid #343333ff;" />
+<br>
 
 ## 🚀 Key Features
 
-- 🧠 **Multi-Model Intelligence**: Leverages Groq for speed and Gemini for deep analysis.
-- 📐 **IEC Compliance**: Automated checks for insulation thickness and conductor class.
-- 🔍 **LangSmith Tracing**: Full observability of the AI decision-making process.
-- 📦 **Modern Stack**: Built with `uv` for lightning-fast dependency resolution.
-- 🛡️ **Pydantic Validation**: Strong typing ensures data integrity from API to Database.
-
-<hr style="border: none; border-top: 1px solid #343333ff;" />
+| S.no | Capability | Description | Primary Role | Backend Impact |
+|---|-------------|--------------|----------------|-----------------|
+| 1 | 🧠 Multi-Model Intelligence | Leverages Groq for speed and Gemini for deep analysis. | AI orchestration | Balances low-latency extraction with high-accuracy analytical validation. |
+| 2 | 📐 IS Compliance | Automated checks for insulation thickness and conductor class. | Standards validation | Ensures electrical designs conform to IS technical requirements. |
+| 3 | 🔍 LangSmith Tracing | Full observability of the AI decision-making process. | Observability & monitoring | Enables debugging, auditing, and traceability across the AI pipeline. |
+| 4 | 📦 Modern Stack | Built with uv for lightning-fast dependency resolution. | Developer infrastructure | Improves environment reproducibility and development velocity. |
+| 5 | 🛡️ Pydantic Validation | Strong typing ensures data integrity from API to Database. | Data contracts & validation | Prevents schema drift, runtime errors, and invalid data persistence. |
+<br>
 
 ## 📂 Architecture at a Glance
 
@@ -55,8 +53,7 @@ src/backend/
 ├── schemas/        # 📑 Pydantic data models
 └── prompt_library/ # 📜 Prompt engineering templates
 ```
-
----
+<br>
 
 ## 📥 Getting Started
 
@@ -91,6 +88,7 @@ GOOGLE_API_KEY=AIza...
 DATABASE_URL=sqlite:///./conductors.db
 LANGSMITH_TRACING_V2=true
 ```
+For reference, please see the `.env.example` file.
 
 ### 4. Launch Service
 
@@ -99,8 +97,7 @@ uv run main.py
 ```
 
 🌐 **API Docs:** `http://localhost:8000/docs`
-
----
+<br>
 
 ## 📝 License
 
