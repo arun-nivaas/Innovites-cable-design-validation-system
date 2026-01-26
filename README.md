@@ -1,81 +1,108 @@
+<div align="center">
 
-# ⚡ AI-Driven Cable Design Validation System
+# Cable Design Validation System
 
-AI-powered validation system for IEC 60502-1 low-voltage cable designs using LLM reasoning instead of deterministic rule engines.
+**Advanced AI-powered validation for wires and cables design.**
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi" alt="FastAPI">
+  <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/LangSmith-FF4B4B?style=for-the-badge&logo=LangSmith&logoColor=white" alt="LangSmith">
+</p>
 
-## 📋 overview
+</div>
 
-This system validates cable design specifications against IEC standards using AI reasoning to:
+> The **Cable Design Validation System** is a sophisticated backend engine that automates the 
+> verification of cable technical specifications against Indian standards (IS). By combining 
+> **Structured RAG** with a **Multi-Stage Automated Workflow**, it transforms unstructured technical 
+> descriptions into validated, compliant designs with high precision.
+<br>
 
-Extract design attributes from structured or free-text input
-Validate compliance using engineering judgment
-Return PASS/WARN/FAIL results with confidence scores and explanations
+## 🛠️ How It Works
 
-Key Principle: No hardcoded IEC rules or lookup tables — validation is performed entirely through AI reasoning.
-## Architecture
-![Architecture](https://github.com/arun-nivaas/Innovites-cable-design-validation-system/blob/dev/assets/architecture.png.png)
-## 🚀 Quick Start
+The system follows a rigorous 4-stage pipeline orchestrated for maximum accuracy:
 
-#### Prerequisites
+- **Extraction**: [Groq](https://groq.com/) processes raw text to identify key parameters (CSA, Voltage, Materials).
+- **Database Validation**: Checks parameters against technical tables in `conductors.db`.
+- **Contextual Logic**: Aggregates database proofs and standard references.
+- **Self-Correction**: [Google Gemini](https://ai.google.dev/) performs a final cross-reference audit.
+<br>
 
-- Python 3.11+
-- UV package manager
-- Gemini API key
-- LangSmith Api key
+## 🚀 Key Features
 
-### 1. Clone Repository
+| S.no | Capability | Description | Primary Role | Backend Impact |
+|---|-------------|--------------|----------------|-----------------|
+| 1 | 🧠 Multi-Model Intelligence | Leverages Groq for speed and Gemini for deep analysis. | AI orchestration | Balances low-latency extraction with high-accuracy analytical validation. |
+| 2 | 📐 IS Compliance | Automated checks for insulation thickness and conductor class. | Standards validation | Ensures electrical designs conform to IS technical requirements. |
+| 3 | 🔍 LangSmith Tracing | Full observability of the AI decision-making process. | Observability & monitoring | Enables debugging, auditing, and traceability across the AI pipeline. |
+| 4 | 📦 Modern Stack | Built with uv for lightning-fast dependency resolution. | Developer infrastructure | Improves environment reproducibility and development velocity. |
+| 5 | 🛡️ Pydantic Validation | Strong typing ensures data integrity from API to Database. | Data contracts & validation | Prevents schema drift, runtime errors, and invalid data persistence. |
+<br>
 
-```bash
-git clone <repository-url>
-cd cable-design-validator
+## 📂 Architecture at a Glance
+
+```text
+src/backend/
+├── orchestrator/   # 🎮 Main pipeline controller
+├── providers/      # 🔌 LLM Client wrappers (Groq/Gemini)
+├── validators/     # ⚖️ Rule-based & SQL engines
+├── schemas/        # 📑 Pydantic data models
+└── prompt_library/ # 📜 Prompt engineering templates
 ```
-### 2. Install UV (if not installed)
+<br>
+
+## 📥 Getting Started
+
+### 1. Prerequisites
+
+Ensure you have [uv](https://github.com/astral-sh/uv) installed:
+
 ```bash
-# macOS/Linux
-curl -LsSf https://astral.sh/uv/install.sh | sh
+
+pip install uv
+
 ```
+
+### 2. Quick Setup
+
 ```bash
-# Windows
-powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
-```
-### 3. Setup Environment
-```bash
-# Create virtual environment and install dependencies
+# Clone and enter
+git clone <repo-url>
+cd Innovites-cable-design-validation-system
+
+# Sync dependencies
 uv sync
 ```
-### Install dependencies
-```bash
-uv pip install -r requirements.txt
-```
-### 4. Configure API Key
-Create .env file in project root:
-```bash
-GOOGLE_API_KEY = your_api_key_here
-LANGSMITH_API_KEY = your_api_key_here
 
-GEMINI_MODEL_NAME = "gemini-2.5-flash"
+### 3. Environment variables
 
-LANGSMITH_TRACING_V2 = "true"
-LANGSMITH_PROJECT = "cable-design-validation"
-LANGSMITH_ENDPOINT = "https://api.smith.langchain.com"
+Create a `.env` file with your credentials:
+
+```env
+GROQ_API_KEY=gsk_...
+GOOGLE_API_KEY=AIza...
+DATABASE_URL=sqlite:///./conductors.db
+LANGSMITH_TRACING_V2=true
 ```
-### 5. Run Backend
+For reference, please see the `.env.example` file.
+
+### 4. Launch Service
+
 ```bash
-# Start FastAPI server
 uv run main.py
 ```
-Backend will run at http://localhost:8000
 
-### 6. Run Frontend
-In a new terminal:
-```bash
-# Activate environment
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
+🌐 **API Docs:** `http://localhost:8000/docs`
+<br>
 
-### Start Streamlit
-```bash
-uv run python -m streamlit run src/frontend/app.py
-```
-Frontend will open at http://localhost:8501
+## 📝 License
+
+Licensed under the [MIT License](/LICENSE).
+
+<div align="center">
+  Built with ❤️ for Cable Engineering Excellence
+</div>
