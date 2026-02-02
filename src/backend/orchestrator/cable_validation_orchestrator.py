@@ -5,7 +5,8 @@ from src.backend.interfaces.IS_cable_validation import (
     IEvidenceFormatter, 
     IAuditor
 )
-from src.backend.schemas.cable_validation_schema import LLMResponseSchema
+from src.backend.schemas.cable_validation_schema import LLMResponseSchema, CableDesignSchema
+from typing import Union, Dict, Any
 
 class CableDesignValidator:
     
@@ -22,12 +23,28 @@ class CableDesignValidator:
         self.auditor = auditor
         logger.info("CableDesignValidator initialized with dependency injection")
     
-    async def validate(self, user_input: str) -> LLMResponseSchema:
+    async def validate(self, 
+        user_input: Union[str, Dict[str, Any]], 
+        input_mode: str) -> LLMResponseSchema:
         logger.info("Starting cable design validation workflow")
-        
+        logger.info(f"Starting cable design validation workflow | mode={input_mode}")
+
         # Extract fields
-        extracted_fields = await self.field_extractor.extract(user_input)
-        logger.debug(f"Fields extracted: {extracted_fields}")
+        if input_mode == "free_text":
+            logger.info("Using LLM extractor for free text input")
+            extracted_fields = await self.field_extractor.extract(user_input)  # Returns CableDesignSchema
+            logger.debug(f"Fields extracted via LLM: {extracted_fields}")
+            
+        elif input_mode in {"json", "manual"}:
+            logger.info("Bypassing LLM extractor - converting structured input to CableDesignSchema")
+            # Convert dict to CableDesignSchema using Pydantic validation
+            if not isinstance(user_input, dict):
+                raise ValueError(f"Expected dict for {input_mode} mode, got {type(user_input).__name__}")
+            extracted_fields = CableDesignSchema(**user_input)
+            logger.debug(f"Structured fields converted to schema: {extracted_fields}")
+            
+        else:
+            raise ValueError(f"Invalid input_mode: {input_mode}")
         
         # Validate against database
         db_validations = self.database_validator.validate(extracted_fields)

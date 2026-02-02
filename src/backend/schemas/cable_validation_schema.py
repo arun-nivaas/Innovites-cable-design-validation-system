@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional, List, Literal
+from typing import Optional, List, Literal,Dict,Any
 
 
 class CableDesignSchema(BaseModel):
@@ -35,4 +35,6 @@ class LLMResponseSchema(BaseModel):
     )
 
 class DesignValidationRequest(BaseModel):
-    input: str = Field(..., min_length=1, description="Cable design input to validate")
+    input_mode: Literal["free_text", "json", "manual"]
+    data: Dict[str, Any] = Field(..., description="Input data for cable design validation.")
+
