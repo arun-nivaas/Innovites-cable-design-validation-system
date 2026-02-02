@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 import uuid
+import json
 from src.backend.config.logger import logger
 from src.backend.orchestrator.cable_validation_orchestrator import CableDesignValidator
 from src.backend.validators.database_validators import ISRAGDatabaseValidator
@@ -36,19 +37,43 @@ async def validate_design(
     validator: CableDesignValidator = Depends(get_cable_validator),
     db: Session = Depends(get_db)):
    
-    logger.info(f"Validation request received: {payload.input[:50]}...")
+    logger.info(f"Validation request received: {payload.data}...")
     request_id = uuid.uuid4()
     logger.info(f"Assigned Request ID: {request_id}")
     
+    raw_text = ""
     try:
         # Note: No need to pass 'db' anymore - it's already injected into the validator
-        result = await validator.validate(payload.input)
-        
+        if payload.input_mode == "free_text":
+            description = payload.data.get("description", "")
+            if not description:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Description is required for free_text input mode."
+                )
+            raw_text = description
+            user_input = description
+            
+        elif payload.input_mode in {"json", "manual"}:
+            raw_text = json.dumps(payload.data, indent=2)
+            user_input = payload.data  # Pass as dict - LLM will handle validation
+            
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Invalid input mode: {payload.input_mode}. Supported modes are 'free_text', 'json', and 'manual'."
+            )
+
+       
+    
+        result = await validator.validate(user_input, payload.input_mode)
+
+
         save_ai_validation(
             db=db,
             request_id=request_id,
-            raw_text=payload.input,
-            ai_result=result.model_dump(),
+            raw_text = raw_text,
+            ai_result = result.model_dump(),
             meta={
                 "model_name": "Gemini 2.5 flash",
                 "pipeline_type": "structured_rag",
@@ -63,7 +88,7 @@ async def validate_design(
         save_ai_validation(
             db=db,
             request_id=request_id,
-            raw_text=payload.input,
+            raw_text=raw_text,
             ai_result=None,
             meta={
                 "model_name": "Gemini 2.5 flash",  

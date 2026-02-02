@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List,Union,Dict,Any
 from src.backend.schemas.cable_validation_schema import CableDesignSchema, ValidationResponseSchema, LLMResponseSchema
 
 class IFieldExtractor(ABC):
     """Interface for extracting fields from user input"""
     @abstractmethod
-    async def extract(self, user_input: str) -> CableDesignSchema:
+    async def extract(self, user_input: Union[str, Dict[str, Any]]) -> CableDesignSchema:
         pass
 
 
