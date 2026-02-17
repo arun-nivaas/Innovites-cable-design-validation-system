@@ -20,7 +20,7 @@ class CableRAGValidator:
         if not spec:
             validations.append(ValidationResponseSchema(
                 field="csa",
-                status="FAIL",
+                validation_status="FAIL",
                 expected="Standard IS 8130 Size",
                 comment=f"Size {extracted_data.csa} mm² is not a standard size in IS 8130 Table 2."
             ))
@@ -46,7 +46,7 @@ class CableRAGValidator:
         
         results.append(ValidationResponseSchema(
             field="conductor_material",
-            status="PASS",
+            validation_status="PASS",
             expected=f"Max {expected_res} Ω/km",
             comment=f"Confirmed via IS 8130 Table 2. Resistance limit for {mat_name} is valid for {data.csa} mm²."
         ))
@@ -58,7 +58,7 @@ class CableRAGValidator:
             
             results.append(ValidationResponseSchema(
                 field="conductor_class",
-                status="PASS",
+                validation_status="PASS",
                 expected=f"Min {min_wires_val} wires",
                 comment=f"Confirmed via IS 8130 Table 2. Class 2 construction requires min {min_wires_val} strands."
             ))
@@ -66,7 +66,7 @@ class CableRAGValidator:
         # C. CSA Validation
         results.append(ValidationResponseSchema(
             field="csa",
-            status="PASS",
+            validation_status="PASS",
             expected=f"{data.csa} mm²",
             comment="Validated via IS 8130. This is a recognized standard conductor size."
         ))
@@ -85,7 +85,7 @@ class CableRAGValidator:
             current_val = getattr(data, field_name, "Not Specified")
             results.append(ValidationResponseSchema(
                 field=field_name,
-                status="WARN",
+                validation_status="WARN",
                 expected=f"Refer to {ref_val}",
                 comment=(
                     f"Parameter '{field_name}' ({current_val}) is outside the scope of IS 8130. "
