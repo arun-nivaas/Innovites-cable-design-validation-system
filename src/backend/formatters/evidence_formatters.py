@@ -10,9 +10,9 @@ class EvidenceFormatter(IEvidenceFormatter):
         logger.debug(f"Formatting {len(db_validations)} validation results")
         evidence_lines = ["### DATABASE VALIDATION EVIDENCE (IS 8130):"]
         for v in db_validations:
-            icon = "✅" if v.status == "PASS" else "⚠️"
+            icon = "✅" if v.validation_status == "PASS" else "⚠️"
             evidence_lines.append(
-                f"{icon} Field: {v.field} | Status: {v.status} | "
+                f"{icon} Field: {v.field} | Status: {v.validation_status} | "
                 f"Expected: {v.expected} | Comment: {v.comment}"
             )
         return "\n".join(evidence_lines)

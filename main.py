@@ -1,11 +1,11 @@
-from fastapi import FastAPI,status
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.backend.router.design_router import router as design_router
+from src.backend.router.v1.design_router import router as design_router_v1
+from src.backend.router.system_router import router as system_router
 import uvicorn
 from dotenv import load_dotenv
 from pathlib import Path
 from src.backend.config.logger import logger
-from typing import Dict, Any
 from src.backend.db.database import engine, Base
 from src.backend.config.constants import constant
 
@@ -16,12 +16,23 @@ load_dotenv(dotenv_path=ENV_PATH)
 
 
 app = FastAPI(
-    title=constant.APP_TITLE,
-    version=constant.APP_VERSION,
+    title=f"{constant.APP_TITLE} API",
+    version=constant.API_VERSION,
     description="Advanced AI-powered validation for wires and cables design.",
+    openapi_tags=[
+        {
+            "name": "Design Validation v1",
+            "description": "Endpoints for submitting and retrieving cable design validations."
+        },
+        {
+            "name": "System",
+            "description": "Health check and monitoring endpoints."
+        }
+    ],
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -33,21 +44,10 @@ app.add_middleware(
 
 Base.metadata.create_all(bind=engine)
 
-app.include_router(design_router)
+app.include_router(design_router_v1,prefix=f"{constant.API_PREFIX}/design",tags=[f"Design Validation {constant.API_VERSION}"])  
+app.include_router(system_router)
 
-@app.get("/", status_code=status.HTTP_200_OK, tags=["System"])
-async def root_health_check() -> Dict[str,Any]:
-    """
-    Landing Page & Health Check
-    Shows system status immediately when opening the base URL.
-    """
-    return {
-        "status": "healthy",
-        "service": constant.APP_TITLE,
-        "version": constant.APP_VERSION,
-        "documentation": "/docs",
-        "message": "API is operational. Use the /docs endpoint for testing."
-    }
+
 
 if __name__ == "__main__":
     
