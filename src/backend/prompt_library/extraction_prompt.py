@@ -1,7 +1,7 @@
 EXTRACTION_PROMPT = """Extract cable specification data. Return null for missing values. DO NOT infer or assume anything.
 
 Fields:
-- standard: Standard name (e.g., "IEC 60502-1")
+- standard: Standard name (e.g., "IS 1554-1", "IS 694", "IS 8130", etc.)
 - voltage: Voltage rating (e.g., "0.6/1 kV")
 - conductor_material: ONLY "Cu" or "Al" (Copper→Cu, Aluminium→Al)
 - conductor_class: Class type (e.g., "Class 2")
@@ -17,6 +17,6 @@ Rules:
 4. Return null if value not found
 
 Example:
-Input: "IEC 60502-1, Cu, 10 mm²"
-Output: {{"standard": "IEC 60502-1", "voltage": null, "conductor_material": "Cu", "conductor_class": null, "csa": 10.0, "insulation_material": null, "insulation_thickness": null, "is_out_of_scope": false}}
+Input: "IS 8130, Cu, 10 mm²"
+Output: {{"standard": "IS 8130", "voltage": null, "conductor_material": "Cu", "conductor_class": null, "csa": 10.0, "insulation_material": null, "insulation_thickness": null, "is_out_of_scope": false}}
 """

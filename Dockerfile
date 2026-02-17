@@ -28,4 +28,4 @@ RUN mkdir -p /app/data /app/output
 EXPOSE 8000
 
 # Run with uvicorn directly (no need for "uv run")
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]

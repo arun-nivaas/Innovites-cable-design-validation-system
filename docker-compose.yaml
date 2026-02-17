@@ -20,30 +20,58 @@ services:
       - backend-network
     restart: unless-stopped
 
+  redis:
+    image: redis:7-alpine
+    container_name: redis_cache
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend-network
+    restart: unless-stopped
+
   backend:
     build:
-      context: ..
-      dockerfile: Docker/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     container_name: fastapi_backend
     environment:
+      PYTHONPATH: /app/src
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       SECRET_KEY: ${SECRET_KEY}
       CORS_ORIGINS: ${CORS_ORIGINS}
       ENVIRONMENT: ${ENVIRONMENT}
     ports:
-      - "8000:8000"
+      - "8001:8001"
     depends_on:
       postgres:
         condition: service_healthy
     networks:
       - backend-network
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8000/ || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: celery_worker
+    command: python -m celery -A backend.tasks.validation_task.celery_app worker --loglevel=info
+    environment:
+      PYTHONPATH: /app/src
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: ${REDIS_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - backend-network
+    restart: unless-stopped
 
 networks:
   backend-network:
@@ -51,4 +79,4 @@ networks:
 
 volumes:
   postgres_data:
-    driver: local
+  redis_data:

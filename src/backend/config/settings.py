@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     # Database
     database_url: str = Field(default="", description="Database connection URL")
 
+    # Celery
+    redis_url_set: str = Field(default="", description="Redis connection URL for Celery")
+
     
     # LangSmith
     langsmith_api_key: str = Field(default="", description="LangSmith API key")
