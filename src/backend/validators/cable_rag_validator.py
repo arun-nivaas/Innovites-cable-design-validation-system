@@ -7,9 +7,10 @@ class CableRAGValidator:
     
     def __init__(self, db: Session):
         self.db = db
+        self.validations: List[ValidationResponseSchema] = []
 
     def validate_design(self, extracted_data: CableDesignSchema) -> List[ValidationResponseSchema]:
-        validations: List[ValidationResponseSchema] = []
+        
 
         # 1. RETRIEVE DATA FROM DATABASE (IS 8130 Table 2)
         spec = self.db.query(ConductorSpec).filter(
@@ -18,21 +19,22 @@ class CableRAGValidator:
 
         # If the size is not in our IS 8130 table
         if not spec:
-            validations.append(ValidationResponseSchema(
+            self.validations.append(ValidationResponseSchema(
                 field="csa",
                 validation_status="FAIL",
                 expected="Standard IS 8130 Size",
+                reasoning="CSA size not found in IS 8130 Table 2",
                 comment=f"Size {extracted_data.csa} mm² is not a standard size in IS 8130 Table 2."
             ))
-            return validations
+            return self.validations
 
         # 2. VALIDATE CONDUCTOR PARAMETERS
-        self._validate_conductor(extracted_data, spec, validations)
+        self._validate_conductor(extracted_data, spec, self.validations)
 
         # 3. FLAG NON-DATABASE PARAMETERS
-        self._prepare_llm_fields(extracted_data, validations)
+        self._prepare_llm_fields(extracted_data, self.validations)
 
-        return validations
+        return self.validations
 
     def _validate_conductor(self, data: CableDesignSchema, spec: ConductorSpec, results: List[ValidationResponseSchema]):
         """Validates Conductor parameters using your specific DB model fields."""
@@ -48,6 +50,7 @@ class CableRAGValidator:
             field="conductor_material",
             validation_status="PASS",
             expected=f"Max {expected_res} Ω/km",
+            reasoning = f"{mat_name} conductor with {data.csa} mm² should not exceed {expected_res} Ω/km per IS 8130 Table 2.",
             comment=f"Confirmed via IS 8130 Table 2. Resistance limit for {mat_name} is valid for {data.csa} mm²."
         ))
 
@@ -60,6 +63,7 @@ class CableRAGValidator:
                 field="conductor_class",
                 validation_status="PASS",
                 expected=f"Min {min_wires_val} wires",
+                reasoning=" Class 2 stranded conductor requires a minimum number of wires to ensure flexibility and meet IS 8130 standards.",
                 comment=f"Confirmed via IS 8130 Table 2. Class 2 construction requires min {min_wires_val} strands."
             ))
 
@@ -68,14 +72,15 @@ class CableRAGValidator:
             field="csa",
             validation_status="PASS",
             expected=f"{data.csa} mm²",
+            reasoning=f"CSA of {data.csa} mm² is a standard size listed in IS 8130 Table 2 for {mat_name} conductors.",
             comment="Validated via IS 8130. This is a recognized standard conductor size."
         ))
 
     def _prepare_llm_fields(self, data: CableDesignSchema, results: List[ValidationResponseSchema]):
-        """Flags fields for IS 1554-1 reasoning."""
+        """Flags fields for IS 8130 reasoning."""
         
         llm_fields = [
-            ("standard", "IS 1554 (Part 1)"),
+            ("standard", "IS 8130"),
             ("voltage", "1.1 kV"),
             ("insulation_material", "PVC"),
             ("insulation_thickness", f"{data.insulation_thickness} mm")
@@ -87,9 +92,13 @@ class CableRAGValidator:
                 field=field_name,
                 validation_status="WARN",
                 expected=f"Refer to {ref_val}",
+                reasoning=(
+                    f"The field '{field_name}' with value '{current_val}' is not validated against IS 8130. "
+                    "It requires engineering judgment based on IS 8130 standards."
+                ),
                 comment=(
                     f"Parameter '{field_name}' ({current_val}) is outside the scope of IS 8130. "
-                    "Final LLM must validate this against IS 1554-1 requirements."
+                    "Final LLM must validate this against IS 8130 requirements."
                 )
             ))
 

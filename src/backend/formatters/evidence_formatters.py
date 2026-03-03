@@ -13,6 +13,7 @@ class EvidenceFormatter(IEvidenceFormatter):
             icon = "✅" if v.validation_status == "PASS" else "⚠️"
             evidence_lines.append(
                 f"{icon} Field: {v.field} | Status: {v.validation_status} | "
-                f"Expected: {v.expected} | Comment: {v.comment}"
+                f"Expected: {v.expected} | Reasoning: {v.reasoning} | Comment: {v.comment}"
             )
+        logger.debug(f"Formatted evidence:\n{evidence_lines}")
         return "\n".join(evidence_lines)

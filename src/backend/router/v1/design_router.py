@@ -80,26 +80,23 @@ async def validate_design(
     logger.info(f"Assigned Request ID: {request_id}")
     
     raw_text = ""
+    
     try:
         if payload.input_mode == "free_text":
-            description = payload.data.get("description", "")
-            if not description:
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail="Description is required for free_text input mode."
-                )
-            raw_text = description
-            user_input = description
-            
+            raw_text = payload.data["text"]
+            user_input = raw_text
+
         elif payload.input_mode in {"json", "manual"}:
-            raw_text = json.dumps(payload.data, indent=2)
-            user_input = payload.data
-            
+            raw_text = json.dumps(payload.data.model_dump(exclude_none=True), indent=2)
+            user_input = payload.data.model_dump(exclude_none=True)
+
         else:
+            # Dead code — Literal on input_mode prevents this.
+            # Keeping as last-resort defensive guard.
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Invalid input mode: {payload.input_mode}. Supported modes are 'free_text', 'json', and 'manual'."
-            )
+                detail=f"Invalid input mode: {payload.input_mode}."
+        )   
 
         # Save initial record with PENDING status
         save_ai_validation(

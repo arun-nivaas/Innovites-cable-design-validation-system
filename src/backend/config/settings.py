@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     database_url: str = Field(default="", description="Database connection URL")
 
     # Celery
-    redis_url_set: str = Field(default="", description="Redis connection URL for Celery")
+    redis_url: str = Field(default="", description="Redis connection URL for Celery")
 
     
     # LangSmith
