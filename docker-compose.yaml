@@ -2,6 +2,8 @@ services:
   postgres:
     image: postgres:15-alpine
     container_name: postgres_db
+    env_file:
+      - .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -39,6 +41,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: fastapi_backend
+    env_file:
+      - .env
     environment:
       PYTHONPATH: /app/src
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
@@ -60,6 +64,8 @@ services:
       dockerfile: Dockerfile
     container_name: celery_worker
     command: python -m celery -A backend.tasks.validation_task.celery_app worker --loglevel=info
+    env_file:
+      - .env
     environment:
       PYTHONPATH: /app/src
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}

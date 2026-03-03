@@ -3,6 +3,7 @@ from celery.exceptions import MaxRetriesExceededError
 from src.backend.db.database import SessionLocal
 from src.backend.db.models.ai_validation_model import AIValidation
 from src.backend.orchestrator.cable_validation_orchestrator import CableDesignValidator
+from src.backend.schemas.cable_validation_schema import OutOfScopeResponse
 from src.backend.validators.database_validators import ISRAGDatabaseValidator
 from src.backend.formatters.evidence_formatters import EvidenceFormatter
 from src.backend.extractor.llm_extractor import LLMFieldExtractor
@@ -17,8 +18,8 @@ from src.backend.config.settings import settings
 
 celery_app: Celery = Celery(
     "Cable Validation",
-    broker=settings.redis_url_set,
-    backend=settings.redis_url_set
+    broker=settings.redis_url,
+    backend=settings.redis_url
 )
 
 celery_config: dict[str, Any] = {
@@ -58,7 +59,11 @@ def validate_cable_design_task(self, request_id: str, user_input: Any, input_mod
         
         if validation_record:
             validation_record.ai_response = result.model_dump()
-            validation_record.status = "SUCCESS"
+            # ── Handle OUT_OF_SCOPE ──
+            if isinstance(result, OutOfScopeResponse):
+                validation_record.status = "OUT_OF_SCOPE"
+            else:
+                validation_record.status = "SUCCESS"
             db.commit()
             logger.info(f"[CELERY] Validation completed successfully | request_id={request_id}")
         else:

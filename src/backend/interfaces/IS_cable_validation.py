@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 from typing import List,Union,Dict,Any
-from src.backend.schemas.cable_validation_schema import CableDesignSchema, ValidationResponseSchema, LLMResponseSchema
+from src.backend.schemas.cable_validation_schema import ValidationResponseSchema,GroqExtractionResponse,GeminiValidationResponse,CableDesignSchema
 
 class IFieldExtractor(ABC):
     """Interface for extracting fields from user input"""
     @abstractmethod
-    async def extract(self, user_input: Union[str, Dict[str, Any]]) -> CableDesignSchema:
+    async def extract(self, user_input: Union[str, Dict[str, Any]]) -> GroqExtractionResponse:
         pass
 
 
@@ -26,5 +26,5 @@ class IEvidenceFormatter(ABC):
 class IAuditor(ABC):
     """Interface for auditing with LLM"""
     @abstractmethod
-    async def audit(self, evidence_context: str, extracted_fields: CableDesignSchema) -> LLMResponseSchema:
+    async def audit(self, evidence_context: str, extracted_fields: CableDesignSchema) -> GeminiValidationResponse:
         pass
